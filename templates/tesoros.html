@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <h1>Buscatesoros (MongoDB y Heroku)<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></h1>
+
+    </div>
+</div>
+<br/>
+Hola, {{session['email']}} 
+<a class="btn btn-primary" href="/new">
+    Crear tesoro
+    <span style="margin-left: 5px;" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+</a>
+<a class="btn btn-primary" href="/newcaza">
+    Empezar la caza 
+    <span style="margin-left: 5px;" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+</a>
+<br/>
+<br/>
+
+{% if tesoros|count > 0 %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+            <th>id</th>
+            <th>Pista</th>
+            <!--<th> Fecha de creaci&oacute;n</th> -->
+            <th>Acciones</th>
+            </thead>
+            <tbody>
+            {% for tes in tesoros %}
+            <tr>
+                <td>{{ tes.id }}</td>
+                <td>{{ tes.pista }}</td>
+                <!-- <td>{{ tes.date.strftime('%d-%m-%Y') }}</td> -->
+                <td><a class="btn btn-warning" href="/encontrado/{{ tes.id }}">Encontrado </a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 bg-warning warning_mesagge">
+            <label>No existen tesoros todav&iacute;a.</label>
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+</div>
+{% endif %}
+
+        <script type="text/javascript">
+            window.onload = function() {
+                if(!window.location.hash) {
+                    window.location = window.location + '#loaded';
+                    window.location.reload();
+                }
+            }
+        </script>
+
+{% endblock content %}
